@@ -24,7 +24,7 @@ function Login(props) {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate("/signedin");
+          navigate("/signedin/home");
           console.log(user);
         })
         .catch((error) => {
@@ -39,7 +39,7 @@ function Login(props) {
 
   let { currentUser } = useContext(AuthContext);
   if (currentUser) {
-    return <Navigate to="/signedin" />;
+    return <Navigate to="/signedin/home" />;
   }
 
   return (

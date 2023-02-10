@@ -1,31 +1,50 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import app, { auth } from "./firebase/firebaseConfig";
 import firebaseConfig from "./firebase/firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-function SignupUser(props) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const handleSubmit = (e) => {
+const SignupUser = () => {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [age, setAge] = useState("");
+  const [date, setDate] = useState("");
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const { firstName, lastName, age, date, disease, email, password } =
-      e.target.elements;
 
-    try {
-      firebaseConfig
-        .auth()
-        .createUserwithEmailAndPassword(email.value, password.value);
-      setCurrentUser(true);
-    } catch (error) {
-      alert(error);
-    }
+    await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password,
+      name,
+      lastname,
+      age,
+      date
+    )
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        navigate("/");
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        // ..
+      });
   };
-  if (currentUser) {
-    return <Navigate to="/signedin" />;
-  }
 
   return (
     <form
       className="vh-200"
-      onSubmit={handleSubmit}
+      // onSubmit={handleSubmit}
       style={{
         backgroundColor: "#d1f7e5",
         paddingTop: "60px",
@@ -59,6 +78,7 @@ function SignupUser(props) {
                         type="firstName"
                         name="firstName"
                         id="firstName"
+                        onChange={(e) => setName(e.target.value)}
                       />
                       <label
                         htmlFor="floatingInput"
@@ -75,6 +95,7 @@ function SignupUser(props) {
                         type="lastName"
                         name="lastName"
                         id="lastName"
+                        onChange={(e) => setLastname(e.target.value)}
                       />
                       <label
                         htmlFor="floatingInput"
@@ -94,6 +115,7 @@ function SignupUser(props) {
                         type="age"
                         name="age"
                         id="age"
+                        onChange={(e) => setAge(e.target.value)}
                       />
                       <label
                         htmlFor="floatingInput"
@@ -112,9 +134,7 @@ function SignupUser(props) {
                         type="radio"
                         name="inlineRadioOptions"
                         id="femaleGender"
-                        value="option1"
-                        checked
-                        onChange={() => console.log("xxx")}
+                        value="female"
                       />
                       <label
                         className="form-check-label text-black"
@@ -131,7 +151,7 @@ function SignupUser(props) {
                         type="radio"
                         name="inlineRadioOptions"
                         id="maleGender"
-                        value="option2"
+                        value="male"
                       />
                       <label
                         className="form-check-label text-black"
@@ -147,9 +167,11 @@ function SignupUser(props) {
                   <div className="col-md-12 mb-3">
                     <div className="form-floating">
                       <input
+                        name="date"
                         type="date"
                         className="form-control"
-                        id="floatingInput"
+                        id="date"
+                        onChange={(e) => setDate(e.target.value)}
                       />
                       <label
                         htmlFor="floatingInput"
@@ -186,6 +208,7 @@ function SignupUser(props) {
                         type="email"
                         name="email"
                         id="email"
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                       <label
                         htmlFor="floatingInput"
@@ -205,6 +228,7 @@ function SignupUser(props) {
                         type="password"
                         name="password"
                         id="password"
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                       <label
                         htmlFor="floatingPassword"
@@ -240,6 +264,7 @@ function SignupUser(props) {
                   <button
                     className="btn btn-blue btn-lg btn-block"
                     type="submit"
+                    onClick={onSubmit}
                     style={{ width: "100%", fontSize: "32px" }}
                   >
                     <h2>ลงทะเบียน</h2>
@@ -266,6 +291,6 @@ function SignupUser(props) {
       </div>
     </form>
   );
-}
+};
 
 export default SignupUser;
