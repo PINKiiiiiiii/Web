@@ -75,9 +75,9 @@ const SignupUser = () => {
                     <div className="form-floating">
                       <input
                         className="form-control"
-                        type="firstName"
-                        name="firstName"
-                        id="firstName"
+                        type="name"
+                        name="name"
+                        id="name"
                         onChange={(e) => setName(e.target.value)}
                       />
                       <label
@@ -92,9 +92,9 @@ const SignupUser = () => {
                     <div className="form-floating">
                       <input
                         className="form-control"
-                        type="lastName"
-                        name="lastName"
-                        id="lastName"
+                        type="lastname"
+                        name="lastname"
+                        id="lastname"
                         onChange={(e) => setLastname(e.target.value)}
                       />
                       <label

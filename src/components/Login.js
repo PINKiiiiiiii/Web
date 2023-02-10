@@ -6,46 +6,31 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "./Auth";
 import { useContext } from "react";
 
-function Login(props) {
+const Login = () => {
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/signedin/home");
-  };
-  const handleSubmit = (e) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onLogin = (e) => {
     e.preventDefault();
-
-    const { email, password } = e.target.elements;
-
-    try {
-      // firebaseConfig
-      //   .auth()
-      //   .signInWithEmailAndPassword(email.value, password.value);
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          navigate("/signedin/home");
-          console.log(user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-        });
-    } catch (error) {
-      alert(error);
-    }
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        navigate("/signedin/home");
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
-
-  let { currentUser } = useContext(AuthContext);
-  if (currentUser) {
-    return <Navigate to="/signedin/home" />;
-  }
 
   return (
     <form
       className="vh-100"
-      onSubmit={handleSubmit}
+      // onSubmit={handleSubmit}
       style={{
         backgroundColor: "#d1f7e5",
         paddingTop: "100px",
@@ -69,10 +54,12 @@ function Login(props) {
                 </h1>
                 <div className="form-floating mb-3">
                   <input
+                    name="email"
                     type="email"
                     className="form-control"
                     id="email"
                     placeholder="name@example.com"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <label htmlFor="email" style={{ fontSize: "20px" }}>
                     Email
@@ -80,10 +67,12 @@ function Login(props) {
                 </div>
                 <div className="form-floating mb-3">
                   <input
+                    name="password"
                     type="password"
                     className="form-control"
                     id="password"
                     placeholder="password"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <label htmlFor="password" style={{ fontSize: "20px" }}>
                     รหัสผ่าน
@@ -109,7 +98,7 @@ function Login(props) {
                     className="btn btn-blue btn-lg btn-block"
                     type="submit"
                     style={{ width: "100%", fontSize: "32px" }}
-                    onClick={handleClick}
+                    onClick={onLogin}
                   >
                     <h2>เข้าสู่ระบบ</h2>
                   </button>
@@ -134,6 +123,6 @@ function Login(props) {
       </div>
     </form>
   );
-}
+};
 
 export default Login;
