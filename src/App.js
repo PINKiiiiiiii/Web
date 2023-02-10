@@ -8,17 +8,20 @@ import Alzheimer from "./components/Alzheimer";
 import Login from "./components/Login";
 import SignupUser from "./components/SignupUser";
 import NavbarDoc from "./components/NavbarDoc";
+import { AuthProvider } from "./components/Auth";
 
 function App(props) {
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signupuser" element={<SignupUser />} />
-        <Route path="signedin/*" element={<Navbar />} />
-        <Route path="admin/*" element={<NavbarDoc />} />
-      </Routes>
-    </div>
+    <AuthProvider>
+      <div>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/signupuser" element={<SignupUser />} />
+          <Route path="signedin/*" element={<Navbar />} />
+          <Route path="admin/*" element={<NavbarDoc />} />
+        </Routes>
+      </div>
+    </AuthProvider>
   );
 }
 
