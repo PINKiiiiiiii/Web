@@ -1,25 +1,38 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import logo from "./Picture/GreenBrain.png";
+import firebaseConfig from "./firebase/firebaseConfig";
+import { AuthContext } from "./Auth";
+import { useContext } from "react";
 
 function Login(props) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/signedin/home");
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const handleChangeUsername = (e) => {
-    setUsername(e.target.value);
+    const { email, password } = e.target.elements;
+
+    try {
+      firebaseConfig
+        .auth()
+        .signInWithEmailAndPassword(email.value, password.value);
+    } catch (error) {
+      alert(error);
+    }
   };
 
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
+  let { currentUser } = useContext(AuthContext);
+  if (currentUser) {
+    return <Navigate to="/signedin" />;
+  }
+
   return (
-    <section
+    <form
       className="vh-100"
+      onSubmit={handleSubmit}
       style={{
         backgroundColor: "#d1f7e5",
         paddingTop: "100px",
@@ -47,7 +60,6 @@ function Login(props) {
                     className="form-control"
                     id="email"
                     placeholder="name@example.com"
-                    onChange={handleChangeUsername}
                   />
                   <label htmlFor="email" style={{ fontSize: "20px" }}>
                     Email
@@ -59,7 +71,6 @@ function Login(props) {
                     className="form-control"
                     id="password"
                     placeholder="password"
-                    onChange={handleChangePassword}
                   />
                   <label htmlFor="password" style={{ fontSize: "20px" }}>
                     รหัสผ่าน
@@ -108,7 +119,7 @@ function Login(props) {
           </div>
         </div>
       </div>
-    </section>
+    </form>
   );
 }
 

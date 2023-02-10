@@ -44,12 +44,13 @@ function Test() {
             </h4>
           </div>
         </div>
+
         <div className="row mb-2">
           <div className="col-1 d-flex justify-content-end">
             <img src={check} style={{ width: "40%" }} />
           </div>
           <div className="col-11">
-            <h4>ทำแบบทดสอบอย่างตั้งใจ เพื่อให้ได้ผลลัพธ์ที่แม่นยำมากที่สุด</h4>
+            <h4>เปิดเสียงขณะทำแบบทดสอบ เพื่อรับฟังข้อควรปฏิบัติขณะทำ</h4>
           </div>
         </div>
         <div className="row mb-2">
@@ -57,7 +58,7 @@ function Test() {
             <img src={check} style={{ width: "40%" }} />
           </div>
           <div className="col-11">
-            <h4>เปิดเสียงขณะทำแบบทดสอบ เพื่อรับฟังข้อควรปฏิบัติขณะทำ</h4>
+            <h4>ทำแบบทดสอบอย่างตั้งใจ เพื่อให้ได้ผลลัพธ์ที่แม่นยำมากที่สุด</h4>
           </div>
         </div>
       </div>

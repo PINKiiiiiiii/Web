@@ -1,9 +1,31 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useState } from "react";
+import firebaseConfig from "./firebase/firebaseConfig";
 
-function SignupUser() {
+function SignupUser(props) {
+  const [currentUser, setCurrentUser] = useState(null);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { firstName, lastName, age, date, disease, email, password } =
+      e.target.elements;
+
+    try {
+      firebaseConfig
+        .auth()
+        .createUserwithEmailAndPassword(email.value, password.value);
+      setCurrentUser(true);
+    } catch (error) {
+      alert(error);
+    }
+  };
+  if (currentUser) {
+    return <Navigate to="/signedin" />;
+  }
+
   return (
-    <section
+    <form
       className="vh-200"
+      onSubmit={handleSubmit}
       style={{
         backgroundColor: "#d1f7e5",
         paddingTop: "60px",
@@ -33,10 +55,10 @@ function SignupUser() {
                     <div className="col-md-6 mb-3">
                       <div className="form-floating">
                         <input
-                          type="ชื่อ"
                           className="form-control"
-                          id="floatingInput"
-                          placeholder="Name"
+                          type="firstName"
+                          name="firstName"
+                          id="firstName"
                         />
                         <label for="floatingInput" style={{ fontSize: "20px" }}>
                           ชื่อ
@@ -46,10 +68,10 @@ function SignupUser() {
                     <div className="col-md-6 mb-3">
                       <div className="form-floating">
                         <input
-                          type="นามสกุล"
                           className="form-control"
-                          id="floatingInput"
-                          placeholder="Lastname"
+                          type="lastName"
+                          name="lastName"
+                          id="lastName"
                         />
                         <label for="floatingInput" style={{ fontSize: "20px" }}>
                           นามสกุล
@@ -62,10 +84,10 @@ function SignupUser() {
                     <div className="col-md-6 mb-3">
                       <div className="form-floating">
                         <input
-                          type="อายุ"
                           className="form-control"
-                          id="floatingInput"
-                          placeholder="50"
+                          type="age"
+                          name="age"
+                          id="age"
                         />
                         <label for="floatingInput" style={{ fontSize: "20px" }}>
                           อายุ
@@ -118,7 +140,6 @@ function SignupUser() {
                           type="date"
                           className="form-control"
                           id="floatingInput"
-                          placeholder="disease"
                         />
                         <label for="floatingInput" style={{ fontSize: "20px" }}>
                           วันเกิด
@@ -130,10 +151,10 @@ function SignupUser() {
                     <div className="col-md-12 mb-3">
                       <div className="form-floating">
                         <input
-                          type="disease"
                           className="form-control"
-                          id="floatingInput"
-                          placeholder="disease"
+                          type="disease"
+                          name="disease"
+                          id="disease"
                         />
                         <label for="floatingInput" style={{ fontSize: "20px" }}>
                           โรคประจำตัว
@@ -145,10 +166,10 @@ function SignupUser() {
                     <div className="col-md-12 mb-3">
                       <div className="form-floating">
                         <input
-                          type="email"
                           className="form-control"
-                          id="floatingInput"
-                          placeholder="name@example.com"
+                          type="email"
+                          name="email"
+                          id="email"
                         />
                         <label for="floatingInput" style={{ fontSize: "20px" }}>
                           Email
@@ -161,10 +182,10 @@ function SignupUser() {
                     <div className="col-md-12 mb-3">
                       <div className="form-floating">
                         <input
-                          type="password"
                           className="form-control"
-                          id="floatingPassword"
-                          placeholder="Password"
+                          type="password"
+                          name="password"
+                          id="password"
                         />
                         <label
                           for="floatingPassword"
@@ -179,10 +200,10 @@ function SignupUser() {
                     <div className="col-md-12 mb-3">
                       <div className="form-floating">
                         <input
-                          type="password"
                           className="form-control"
-                          id="floatingPassword"
-                          placeholder="Password"
+                          type="password"
+                          name="password"
+                          id="password"
                         />
                         <label
                           for="floatingPassword"
@@ -224,7 +245,7 @@ function SignupUser() {
           </div>
         </div>
       </div>
-    </section>
+    </form>
   );
 }
 
