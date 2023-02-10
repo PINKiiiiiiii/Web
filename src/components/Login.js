@@ -1,7 +1,8 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import logo from "./Picture/GreenBrain.png";
-import firebaseConfig from "./firebase/firebaseConfig";
+import app, { auth } from "./firebase/firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "./Auth";
 import { useContext } from "react";
 
@@ -16,9 +17,21 @@ function Login(props) {
     const { email, password } = e.target.elements;
 
     try {
-      firebaseConfig
-        .auth()
-        .signInWithEmailAndPassword(email.value, password.value);
+      // firebaseConfig
+      //   .auth()
+      //   .signInWithEmailAndPassword(email.value, password.value);
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          navigate("/signedin");
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
     } catch (error) {
       alert(error);
     }
