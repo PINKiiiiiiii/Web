@@ -8,20 +8,15 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    // firebaseConfig.auth().onAuthStateChanged((user) => {
+    // app.auth().onAuthStateChanged((user) => {
     //   setCurrentUser(user);
     // });
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
-        // ...
         setCurrentUser(user);
         console.log("uid", uid);
       } else {
-        // User is signed out
-        // ...
         console.log("user is logged out");
       }
     });

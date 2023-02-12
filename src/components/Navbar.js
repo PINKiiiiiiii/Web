@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import logo from "./Picture/GreenBrain.png";
 import { Routes, Route } from "react-router-dom";
 import Aboutus from "./Aboutus";
@@ -9,8 +9,29 @@ import Alzheimer from "./Alzheimer";
 import Result from "./Result";
 import HomeDoc from "./HomeDoc";
 import ResultDoc from "./ResultDoc";
+import React, { useState, useEffect } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "./firebase/firebaseConfig";
 
-function Navbar(props) {
+const Navbar = () => {
+  const navigate = useNavigate();
+
+  // if (!auth.uid) {
+  //   <Navigate to="/" />;
+  // }
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        navigate("/");
+        console.log("Signed out successfully");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand bg-navbar fixed-top">
@@ -20,7 +41,7 @@ function Navbar(props) {
         >
           <img style={{ height: "50px" }} />
           <div className="collapse navbar-collapse" id="navbarResponsive">
-            <ul className="navbar-nav">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="mx-lg-3">
                 <NavLink className="nav-link" to="/signedin/home">
                   <img src={logo} style={{ height: "3vh" }} />
@@ -52,6 +73,14 @@ function Navbar(props) {
                 </NavLink>
               </li>
             </ul>
+
+            <button
+              className="btn btn-blue"
+              onClick={handleLogout}
+              type="submit"
+            >
+              <span>ออกจากระบบ</span>
+            </button>
           </div>
         </div>
       </nav>
@@ -67,6 +96,6 @@ function Navbar(props) {
       </Routes>
     </div>
   );
-}
+};
 
 export default Navbar;

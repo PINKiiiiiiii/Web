@@ -18,7 +18,6 @@ const SignupUser = () => {
     e.preventDefault();
 
     await createUserWithEmailAndPassword(
-      auth,
       email,
       password,
       name,

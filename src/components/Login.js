@@ -3,8 +3,6 @@ import { useState } from "react";
 import logo from "./Picture/GreenBrain.png";
 import app, { auth } from "./firebase/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { AuthContext } from "./Auth";
-import { useContext } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -58,7 +56,6 @@ const Login = () => {
                     type="email"
                     className="form-control"
                     id="email"
-                    placeholder="name@example.com"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <label htmlFor="email" style={{ fontSize: "20px" }}>
@@ -71,7 +68,6 @@ const Login = () => {
                     type="password"
                     className="form-control"
                     id="password"
-                    placeholder="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <label htmlFor="password" style={{ fontSize: "20px" }}>

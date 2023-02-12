@@ -1,6 +1,13 @@
 import check from "./Picture/check.png";
+import { useNavigate } from "react-router-dom";
+import next from "../PoDE/index.html";
 
 function Test() {
+  let navigate = useNavigate();
+  const goTest = () => {
+    navigate(next);
+  };
+
   return (
     <div className="container-fluid bg-blue vh-100" style={{ padding: "0em" }}>
       <div
@@ -74,6 +81,7 @@ function Test() {
           className="btn btn-blue btn-lg btn-block"
           type="submit"
           style={{ width: "100%", fontSize: "32px" }}
+          onClick={goTest}
         >
           <h2>เริ่มทดสอบ</h2>
         </button>
