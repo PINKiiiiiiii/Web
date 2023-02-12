@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" type="text/css" href="../css/video.css" />
+  <link rel="stylesheet" type="text/css" href="./css/style.css" />
+  <link
+    rel="stylesheet"
+    href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+    crossorigin="anonymous"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://cdn.jsdelivr.net/gh/lazywasabi/thai-web-fonts@7/fonts/Anuphan/Anuphan.css"
+    rel="stylesheet"
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"
+  ></script>
+
+  <script src="https://webgazer.cs.brown.edu/webgazer.js?"></script>
+  <script>
+    var retrievedData = JSON.parse(localStorage.getItem("gazeData"));
+    var time = JSON.parse(localStorage.getItem("time"));
+    console.log("Calibrate", retrievedData);
+    console.log("Time", time);
+  </script>
+</head>
+
+<body lang="en-US" link="#0000ff" dir="LTR">
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/sweetalert/dist/sweetalert.min.js"></script>
+
+  <script src="./js/main.js"></script>
+  <!-- <script src="./js/calibration.js"></script> -->
+  <script src="./js/precision_calculation.js"></script>
+  <script src="./js/precision_store_points.js"></script>
+
+  <div class="video-background">
+    <video
+      autoplay
+      loop="false"
+      src="./Video/vpctask.mp4"
+      muted="false"
+      id="bg-video"
+      volume="1"
+      type="video/mp4"
+    ></video>
+    <audio
+      autoplay
+      allow="autoplay"
+      src="./Video/vpctask.mp4"
+      type="audio/mpeg"
+    ></audio>
+    <div>
+      <script>
+        var video = document.getElementById("bg-video");
+        video.loop = false;
+        video.addEventListener("ended", function () {
+          var btn = document.createElement("button");
+          btn.innerHTML = "หน้าถัดไป";
+          btn.setAttribute("class", "btn btn-info next-test-btn");
+          btn.style.fontSize = "40px";
+          btn.style.borderRadius = "45px";
+          btn.style.fontFamily = "Anuphan";
+          btn.addEventListener("click", function () {
+            window.location.href = "proSaccade.html";
+            webgazer.pause();
+            var csv = arr.map((fields) => fields.join(",")).join("\n");
+            var dl = "data:text/csv;charset=utf-8," + csv;
+            window.open(encodeURI(dl));
+          });
+          var parentDiv =
+            document.getElementsByClassName("video-background")[0];
+          parentDiv.appendChild(btn);
+        });
+      </script>
+    </div>
+  </div>
+
+  <!-- <div style="z-index: -100">
+    <canvas
+      id="plotting_canvas"
+      width="500"
+      height="500"
+      style="cursor: crosshair"
+    ></canvas>
+  </div> -->
+
+  <script src="./js/resize_canvas.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>

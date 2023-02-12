@@ -1,0 +1,35 @@
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: -100;
+  zoom: 0.6;
+  max-zoom: 0.6;
+}
+
+#bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.next-test-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 35px;
+  width: 320px;
+  height: 100px;
+  border: 2px;
+}

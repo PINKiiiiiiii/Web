@@ -93,6 +93,13 @@ const Navbar = () => {
         <Route path="result" element={<Result />} />
         <Route path="dashboard" element={<HomeDoc />} />
         <Route path="patient" element={<ResultDoc />} />
+        <Route
+          exact
+          path="normal"
+          render={() => {
+            window.location.href = "pode.html";
+          }}
+        />
       </Routes>
     </div>
   );

@@ -1,12 +1,12 @@
 import check from "./Picture/check.png";
 import { useNavigate } from "react-router-dom";
-// import next from "../PoDE/index.html";
+// import next from "../PoDE/js/main";
 
 function Test() {
-  // let navigate = useNavigate();
-  // const goTest = () => {
-  //   navigate(next);
-  // };
+  let navigate = useNavigate();
+  const goTest = () => {
+    navigate((window.location.href = "/src/PoDE/pode.html"));
+  };
 
   return (
     <div className="container-fluid bg-blue vh-100" style={{ padding: "0em" }}>
@@ -81,8 +81,9 @@ function Test() {
           className="btn btn-blue btn-lg btn-block"
           type="submit"
           style={{ width: "100%", fontSize: "32px" }}
+          onClick={goTest}
         >
-          <h2>เริ่มทดสอบ</h2>
+          <h5>เริ่มทดสอบ</h5>
         </button>
       </div>
     </div>
