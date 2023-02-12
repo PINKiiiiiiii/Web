@@ -1,29 +1,49 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import app, { auth } from "./firebase/firebaseConfig";
 import firebaseConfig from "./firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import db from "./firebase/firebaseConfig";
+import {
+  collection,
+  doc,
+  getDocs,
+  addDoc,
+  Timestamp,
+} from "firebase/firestore";
+import { useRef, useState } from "react";
 
 const SignupUser = () => {
-  const navigate = useNavigate();
+  const formValues = useRef({
+    First: "",
+    Middle: "",
+    Last: "",
+    Weight: "",
+    Height: "",
+    Gender: "",
+    BloodGroup: "",
+    Birthday: "",
+    OtherDisease: "",
+    Email: "",
+    Password: "",
+    FamilyHasAD: false,
+  });
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [age, setAge] = useState("");
-  const [date, setDate] = useState("");
+  const [toggleRender, setToggleRender] = useState(false);
+
+  const handleFormChange = (e) => {
+    formValues.current[e.target.name] = e.target.value;
+    // console.log(typeof e.target.value);
+    setToggleRender((x) => !x);
+  };
+  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     await createUserWithEmailAndPassword(
-      email,
-      password,
-      name,
-      lastname,
-      age,
-      date
+      auth,
+      formValues.current.Email,
+      formValues.current.Password
     )
       .then((userCredential) => {
         // Signed in
@@ -38,8 +58,49 @@ const SignupUser = () => {
         console.log(errorCode, errorMessage);
         // ..
       });
+    const docRef = await addDoc(collection(db, "Users"), {
+      Name: {
+        First: formValues.current.First,
+        Middle: formValues.current.Middle,
+        Last: formValues.current.Last,
+      },
+      Weight: Number(formValues.current.Weight),
+      Height: Number(formValues.current.Height),
+      Gender: formValues.current.Gender,
+      BloodGroup: formValues.current.BloodGroup,
+      Birthday: new Date(formValues.current.Birthday),
+      OtherDisease: formValues.current.OtherDisease,
+      Email: formValues.current.Email,
+      Password: formValues.current.Password,
+      FamilyHasAD: Boolean(formValues.current.FamilyHasAD),
+    });
   };
 
+  const {
+    First,
+    Middle,
+    Last,
+    Weight,
+    Height,
+    Gender,
+    BloodGroup,
+    Birthday,
+    OtherDisease,
+    Email,
+    Password,
+    FamilyHasAD,
+  } = formValues.current;
+
+  // const testFunc = async () => {
+  //   const citiesRef = collection(db, "Test");
+  //   const test = await getDocs(citiesRef);
+  //   console.log(test);
+  //   test.forEach((doc) => {
+  //     // doc.data() is never undefined for query doc snapshots
+  //     console.log(doc.id, " => ", doc.data());
+  //   });
+  // };
+  // // testFunc();
   return (
     <form
       className="vh-200"
@@ -68,16 +129,17 @@ const SignupUser = () => {
                 >
                   ลงทะเบียน
                 </h1>
-                {/* <form> */}
+
                 <div className="row">
-                  <div className="col-md-6 mb-3">
+                  <div className="col-md-4 mb-3">
                     <div className="form-floating">
                       <input
                         className="form-control"
-                        type="name"
-                        name="name"
-                        id="name"
-                        onChange={(e) => setName(e.target.value)}
+                        type="text"
+                        name="First"
+                        id="First"
+                        value={First}
+                        onChange={handleFormChange}
                       />
                       <label
                         htmlFor="floatingInput"
@@ -87,14 +149,33 @@ const SignupUser = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="col-md-6 mb-3">
+                  <div className="col-md-4 mb-3">
                     <div className="form-floating">
                       <input
                         className="form-control"
-                        type="lastname"
-                        name="lastname"
-                        id="lastname"
-                        onChange={(e) => setLastname(e.target.value)}
+                        type="text"
+                        name="Middle"
+                        id="Middle"
+                        value={Middle}
+                        onChange={handleFormChange}
+                      />
+                      <label
+                        htmlFor="floatingInput"
+                        style={{ fontSize: "20px" }}
+                      >
+                        ชื่อกลาง
+                      </label>
+                    </div>
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <div className="form-floating">
+                      <input
+                        className="form-control"
+                        type="text"
+                        id="Last"
+                        name="Last"
+                        value={Last}
+                        onChange={handleFormChange}
                       />
                       <label
                         htmlFor="floatingInput"
@@ -111,53 +192,72 @@ const SignupUser = () => {
                     <div className="form-floating">
                       <input
                         className="form-control"
-                        type="age"
-                        name="age"
-                        id="age"
-                        onChange={(e) => setAge(e.target.value)}
+                        type="number"
+                        name="Weight"
+                        id="Weight"
+                        value={Weight}
+                        onChange={handleFormChange}
                       />
                       <label
                         htmlFor="floatingInput"
                         style={{ fontSize: "20px" }}
                       >
-                        อายุ
+                        น้ำหนัก (กิโลกรัม)
                       </label>
                     </div>
                   </div>
-                  <div className="col-md-6 mb-0">
-                    <h5 className="mb-1 pb-1 text-black">เพศ: </h5>
-
-                    <div className="form-check form-check-inline">
+                  <div className="col-md-6 mb-3">
+                    <div className="form-floating">
                       <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="femaleGender"
-                        value="female"
+                        className="form-control"
+                        type="number"
+                        name="Height"
+                        id="Height"
+                        value={Height}
+                        onChange={handleFormChange}
                       />
                       <label
-                        className="form-check-label text-black"
-                        htmlFor="femaleGender"
-                        style={{ fontSize: "18px" }}
+                        htmlFor="floatingInput"
+                        style={{ fontSize: "20px" }}
                       >
-                        หญิง
+                        ส่วนสูง (เซนติเมตร)
                       </label>
                     </div>
-
-                    <div className="form-check form-check-inline">
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <div className="form-floating">
                       <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="maleGender"
-                        value="male"
+                        className="form-control"
+                        name="Gender"
+                        id="Gender"
+                        value={Gender}
+                        onChange={handleFormChange}
                       />
                       <label
-                        className="form-check-label text-black"
-                        htmlFor="maleGender"
-                        style={{ fontSize: "18px" }}
+                        htmlFor="floatingInput"
+                        style={{ fontSize: "20px" }}
                       >
-                        ชาย
+                        เพศ
+                      </label>
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form-floating">
+                      <input
+                        className="form-control"
+                        type="text"
+                        name="BloodGroup"
+                        id="BloodGroup"
+                        value={BloodGroup}
+                        onChange={handleFormChange}
+                      />
+                      <label
+                        htmlFor="floatingInput"
+                        style={{ fontSize: "20px" }}
+                      >
+                        กรุ๊ปเลือด
                       </label>
                     </div>
                   </div>
@@ -166,11 +266,12 @@ const SignupUser = () => {
                   <div className="col-md-12 mb-3">
                     <div className="form-floating">
                       <input
-                        name="date"
                         type="date"
+                        name="Birthday"
                         className="form-control"
-                        id="date"
-                        onChange={(e) => setDate(e.target.value)}
+                        id="Birthday"
+                        value={Birthday}
+                        onChange={handleFormChange}
                       />
                       <label
                         htmlFor="floatingInput"
@@ -186,9 +287,11 @@ const SignupUser = () => {
                     <div className="form-floating">
                       <input
                         className="form-control"
-                        type="disease"
-                        name="disease"
-                        id="disease"
+                        type="text"
+                        name="OtherDisease"
+                        id="OtherDiseasee"
+                        value={OtherDisease}
+                        onChange={handleFormChange}
                       />
                       <label
                         htmlFor="floatingInput"
@@ -205,9 +308,10 @@ const SignupUser = () => {
                       <input
                         className="form-control"
                         type="email"
-                        name="email"
-                        id="email"
-                        onChange={(e) => setEmail(e.target.value)}
+                        name="Email"
+                        id="Email"
+                        value={Email}
+                        onChange={handleFormChange}
                       />
                       <label
                         htmlFor="floatingInput"
@@ -225,9 +329,10 @@ const SignupUser = () => {
                       <input
                         className="form-control"
                         type="password"
-                        name="password"
-                        id="password"
-                        onChange={(e) => setPassword(e.target.value)}
+                        name="Password"
+                        id="Password"
+                        value={Password}
+                        onChange={handleFormChange}
                       />
                       <label
                         htmlFor="floatingPassword"
@@ -243,9 +348,9 @@ const SignupUser = () => {
                     <div className="form-floating">
                       <input
                         className="form-control"
-                        type="password"
                         name="password"
                         id="password"
+                        type="password"
                       />
                       <label
                         htmlFor="floatingPassword"
@@ -255,6 +360,23 @@ const SignupUser = () => {
                       </label>
                     </div>
                   </div>
+                </div>
+                <div className="form-check d-flex justify-content-start mb-4">
+                  <input
+                    className="form-check-input"
+                    name="FamilyHasAD"
+                    id="FamilyHasAD"
+                    type="checkbox"
+                    value={FamilyHasAD}
+                    onChange={handleFormChange}
+                    style={{ width: "20px", height: "20px" }}
+                  />
+                  <label
+                    className="form-check-label"
+                    style={{ fontSize: "1.3em", color: "#636363" }}
+                  >
+                    &ensp;มีประวัติคนในครอบครัวเป็นโรคอัลไซเมอร์
+                  </label>
                 </div>
                 <div
                   className="row"
@@ -282,7 +404,6 @@ const SignupUser = () => {
                     </span>
                   </div>
                 </div>
-                {/* </form> */}
               </div>
             </div>
           </div>

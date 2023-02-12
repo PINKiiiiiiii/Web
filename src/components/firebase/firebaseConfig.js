@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "redux-firestore";
+import { getFirestore } from "firebase/firestore";
 
-const app = initializeApp({
+const firebaseConfig = {
   apiKey: "AIzaSyAEGzscVkPakxAkcoWnendb3-RgXiuo_2o",
   authDomain: "pode-2566.firebaseapp.com",
   projectId: "pode-2566",
@@ -10,10 +10,12 @@ const app = initializeApp({
   messagingSenderId: "744534427443",
   appId: "1:744534427443:web:8220a7ac1d62c33995a046",
   measurementId: "G-M322HFVB1Y",
-});
+};
 
 // const fire = initializeApp(app);
 // export const db = getFirestore(fire);
-
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 export const auth = getAuth(app);
-export default app;
+
+export default db;

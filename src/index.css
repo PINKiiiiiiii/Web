@@ -7,7 +7,9 @@ h5,
 h6,
 p,
 span,
-label {
+label,
+option,
+select {
   margin: 0;
   font-family: "Anuphan", sans-serif;
   -webkit-font-smoothing: antialiased;

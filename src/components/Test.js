@@ -81,7 +81,6 @@ function Test() {
           className="btn btn-blue btn-lg btn-block"
           type="submit"
           style={{ width: "100%", fontSize: "32px" }}
-          // onClick={goTest}
         >
           <h2>เริ่มทดสอบ</h2>
         </button>
