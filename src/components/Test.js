@@ -1,12 +1,12 @@
 import check from "./Picture/check.png";
 import { useNavigate } from "react-router-dom";
-import next from "../PoDE/index.html";
+// import next from "../PoDE/index.html";
 
 function Test() {
-  let navigate = useNavigate();
-  const goTest = () => {
-    navigate(next);
-  };
+  // let navigate = useNavigate();
+  // const goTest = () => {
+  //   navigate(next);
+  // };
 
   return (
     <div className="container-fluid bg-blue vh-100" style={{ padding: "0em" }}>
