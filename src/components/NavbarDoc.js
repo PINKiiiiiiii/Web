@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from "./Picture/GreenBrain.png";
+import logo from "./Picture/Logo.png";
 import { Routes, Route } from "react-router-dom";
 import HomeDoc from "./HomeDoc";
 import ResultDoc from "./ResultDoc";
