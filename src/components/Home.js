@@ -44,18 +44,20 @@ function Home(props) {
             >
               <h4 className="text-light-blue">ยินดีต้อนรับ</h4>
               <h1
+                className="text-b"
                 style={{
                   fontSize: "45px",
                   marginTop: "30px",
                   marginBottom: "30px",
                 }}
               >
-                เครื่องมือช่วยคัดกรอง ประเมิน
-                และติดตามภาวะเสื่อมถอยของสมองด้วยเทคโนโลยีปัญญาประดิษฐ์
+                แพลตฟอร์มช่วยตรวจหาโรคอัลไซเมอร์ในระยะเริ่มต้นด้วยตา
+                โดยปัญญาประดิษฐ์
               </h1>
-              <h5 className="text-gray">
-                BrainMED (Brain Medical Equipment for Screening Dementia)
-              </h5>
+              <h6 className="text-gray">
+                PoDE (Platform of Assisting the Early Detection of Alzheimer's
+                Disease with Eyes by AI)
+              </h6>
               <br />
               <button
                 type="button"
@@ -149,8 +151,8 @@ function Home(props) {
           <h4 style={{ color: "#4953f5", marginBottom: "20px" }}>
             บริการของเรา
           </h4>
-          <h1>คัดกรองโรคอัลไซเมอร์ พร้อมให้คำแนะนำ</h1>
-          <p style={{ fontSize: "18px", marginTop: "20px" }}>
+          <h1 className="text-b">คัดกรองโรคอัลไซเมอร์ พร้อมให้คำแนะนำ</h1>
+          <p className="text-b" style={{ fontSize: "18px", marginTop: "20px" }}>
             การตรวจโรคอัลไซเมอร์อย่างสม่ำเสมอ จะช่วยให้ผู้ป่วยรู้ตัวได้เร็ว
             และเข้าสู่กระบวนการรักษาได้รวดเร็วขึ้น ตลอดจนช่วยติดตาม
             และประเมินอาการในแต่ละระยะ อย่างมีประสิทธิภาพ
@@ -160,7 +162,7 @@ function Home(props) {
             <div className="col-1">
               <img src={check} style={{ width: "100%" }} />
             </div>
-            <div className="col-11">
+            <div className="col-11 text-b">
               <h3>คัดกรองโรคอัลไซเมอร์</h3>
               <p style={{ fontSize: "18px" }}>จากการตรวจจับการทำงานของดวงตา</p>
             </div>
@@ -169,7 +171,7 @@ function Home(props) {
             <div className="col-1">
               <img src={check} style={{ width: "100%" }} />
             </div>
-            <div className="col-11">
+            <div className="col-11 text-b">
               <h3>ให้คำแนะนำ</h3>
               <p style={{ fontSize: "18px" }}>
                 คำแนะนำเบื้องต้นหลังการตรวจ และคำแนะนำจากแพทย์โดยตรง
@@ -180,7 +182,7 @@ function Home(props) {
             <div className="col-1">
               <img src={check} style={{ width: "100%" }} />
             </div>
-            <div className="col-11">
+            <div className="col-11 text-b">
               <h3>ให้ความรู้</h3>
               <p style={{ fontSize: "18px" }}>
                 เกี่ยวกับโรคอัลไซเมอร์เบื้องต้น
@@ -194,7 +196,7 @@ function Home(props) {
         <h4 style={{ color: "#4953f5", marginBottom: "20px" }}>
           ขั้นตอนการตรวจ
         </h4>
-        <h1>คัดกรองอัลไซเมอร์ง่าย ๆ ใน 3 ขั้นตอน</h1>
+        <h1 className="text-b">คัดกรองอัลไซเมอร์ง่าย ๆ ใน 3 ขั้นตอน</h1>
       </div>
       <div
         className="container d-flex justify-content-center"
@@ -218,10 +220,13 @@ function Home(props) {
           </div> */}
           <div className="col-4">
             <div className="card" style={{ width: "100%", margin: "20px" }}>
-              <div className="card-body text-center" style={{ padding: "50px" }}>
+              <div
+                className="card-body text-center"
+                style={{ padding: "50px" }}
+              >
                 <img src={calibrate} style={{ width: "100px" }} />
-                <h3 className="card-title">Eye-Calibration</h3>
-                <p className="card-text" style={{ fontSize: "22px" }}>
+                <h3 className="text-b">Eye-Calibration</h3>
+                <p className="text-b" style={{ fontSize: "22px" }}>
                   เพื่อให้ทราบลักษณะของดวงตา ขนาดของหน้าจอ
                   และระยะห่างระหว่างผู้ทดสอบกับหน้าจอ
                 </p>
@@ -230,10 +235,13 @@ function Home(props) {
           </div>
           <div className="col-4">
             <div className="card" style={{ width: "100%", margin: "20px" }}>
-              <div className="card-body text-center" style={{ padding: "50px" }}>
+              <div
+                className="card-body text-center"
+                style={{ padding: "50px" }}
+              >
                 <img src={test} style={{ width: "100px" }} />
-                <h3 className="card-title">ทดสอบ</h3>
-                <p className="card-text" style={{ fontSize: "22px" }}>
+                <h3 className="text-b">ทดสอบ</h3>
+                <p className="text-b" style={{ fontSize: "22px" }}>
                   แบบทดสอบการทำงานของดวงตาทั้งหมด 5 แบบทดสอบ โดยใช้เวลาเพียงแค่
                   5-7 นาที
                 </p>
@@ -242,10 +250,13 @@ function Home(props) {
           </div>
           <div className="col-4">
             <div className="card" style={{ width: "100%", margin: "20px" }}>
-              <div className="card-body text-center" style={{ padding: "50px" }}>
+              <div
+                className="card-body text-center"
+                style={{ padding: "50px" }}
+              >
                 <img src={result} style={{ width: "100px" }} />
-                <h3 className="card-title">ผลการทดสอบ</h3>
-                <p className="card-text" style={{ fontSize: "22px" }}>
+                <h3 className="text-b">ผลการทดสอบ</h3>
+                <p className="text-b" style={{ fontSize: "22px" }}>
                   เปอร์เซ็นต์ความสามารถของดวงตา
                   และส่งเปอร์เซ็นต์โอกาสในการเป็นอัลไซเมอร์ให้กับแพทย์
                 </p>

@@ -1,5 +1,5 @@
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
-import logo from "./Picture/GreenBrain.png";
+import logo from "./Picture/Logo.png";
 import { Routes, Route } from "react-router-dom";
 import Aboutus from "./Aboutus";
 import Home from "./Home";

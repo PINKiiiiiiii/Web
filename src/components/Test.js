@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Test() {
   let navigate = useNavigate();
   const goTest = () => {
-    navigate((window.location.href = "/src/PoDE/pode.html"));
+    navigate((window.location.href = "http://127.0.0.1:5502/index.html"));
   };
 
   return (
@@ -17,9 +17,9 @@ function Test() {
         }}
       >
         <h4 style={{ color: "#4953f5", marginBottom: "10px" }}>คำชี้แจง</h4>
-        <h1>ข้อควรปฏิบัติในการทำแบบทดสอบ</h1>
+        <h1 className="text-b">ข้อควรปฏิบัติในการทำแบบทดสอบ</h1>
       </div>
-      <div className="container-result">
+      <div className="container-result text-b">
         <div className="row mb-2">
           <div className="col-1 d-flex justify-content-end">
             <img src={check} style={{ width: "40%" }} />
@@ -40,7 +40,7 @@ function Test() {
           </div>
         </div>
 
-        <div className="row mb-2">
+        <div className="row mb-2 ">
           <div className="col-1 d-flex justify-content-end">
             <img src={check} style={{ width: "40%" }} />
           </div>
@@ -52,7 +52,7 @@ function Test() {
           </div>
         </div>
 
-        <div className="row mb-2">
+        <div className="row mb-2 ">
           <div className="col-1 d-flex justify-content-end">
             <img src={check} style={{ width: "40%" }} />
           </div>
@@ -60,7 +60,7 @@ function Test() {
             <h4>เปิดเสียงขณะทำแบบทดสอบ เพื่อรับฟังข้อควรปฏิบัติขณะทำ</h4>
           </div>
         </div>
-        <div className="row mb-2">
+        <div className="row mb-2 ">
           <div className="col-1 d-flex justify-content-end">
             <img src={check} style={{ width: "40%" }} />
           </div>
@@ -83,7 +83,7 @@ function Test() {
           style={{ width: "100%", fontSize: "32px" }}
           onClick={goTest}
         >
-          <h5>เริ่มทดสอบ</h5>
+          <h3>เริ่มทดสอบ</h3>
         </button>
       </div>
     </div>

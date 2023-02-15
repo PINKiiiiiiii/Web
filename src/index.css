@@ -80,6 +80,10 @@ select {
   color: #8d8d8d;
 }
 
+.text-b {
+  color: #424242;
+}
+
 .center {
   display: flex;
   align-items: center;

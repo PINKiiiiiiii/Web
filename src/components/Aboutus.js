@@ -24,84 +24,7 @@ function Aboutus() {
       </h1>
       <div className="row text-center" style={{ marginTop: "100px" }}>
         <h4 style={{ color: "#4953f5", marginBottom: "20px" }}>ทีมงานของเรา</h4>
-        <h1>คณะผู้จัดทำ</h1>
-      </div>
-      <div
-        className="container d-flex justify-content-center"
-        style={{
-          padding: "10px",
-          marginBottom: "100px",
-        }}
-      >
-        <div
-          className="row"
-          style={{ marginLeft: "30px", marginRight: "30px" }}
-        >
-          <div className="col-4">
-            <div className="card" style={{ width: "100%", margin: "20px" }}>
-              <div
-                className="card-body text-center"
-                style={{ padding: "20px" }}
-              >
-                <img
-                  src={Pinky}
-                  style={{ width: "100%", marginBottom: "20px" }}
-                />
-                <h3 className="card-title">ธัญญาดา ทองใบ</h3>
-                <p className="card-text text-blue" style={{ fontSize: "20px" }}>
-                  ผู้พัฒนาเว็บไซต์
-                  <br />
-                  <br />
-                  โรงเรียนปรินส์รอยแยลส์วิทยาลัย
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-4">
-            <div className="card" style={{ width: "100%", margin: "20px" }}>
-              <div
-                className="card-body text-center"
-                style={{ padding: "20px" }}
-              >
-                <img
-                  src={Lenny}
-                  style={{ width: "100%", marginBottom: "20px" }}
-                />
-                <h3 className="card-title">เลนนี โธมัส</h3>
-                <p className="card-text text-blue" style={{ fontSize: "20px" }}>
-                  ผู้พัฒนาแบบทดสอบดวงตา
-                  <br />
-                  <br />
-                  โรงเรียนปรินส์รอยแยลส์วิทยาลัย
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-4">
-            <div className="card" style={{ width: "100%", margin: "20px" }}>
-              <div
-                className="card-body text-center"
-                style={{ padding: "20px" }}
-              >
-                <img
-                  src={Tin}
-                  style={{ width: "100%", marginBottom: "20px" }}
-                />
-                <h3 className="card-title">ติณณ์ โพธิกานนท์</h3>
-                <p className="card-text text-blue" style={{ fontSize: "20px" }}>
-                  ผู้พัฒนาปัญญาประดิษฐ์
-                  <br />
-                  <br />
-                  โรงเรียนปรินส์รอยแยลส์วิทยาลัย
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="row text-center" style={{ marginTop: "80px" }}>
-        <h4 style={{ color: "#4953f5", marginBottom: "20px" }}>ทีมงานของเรา</h4>
-        <h1>ทีมแพทย์ที่ปรึกษา</h1>
+        <h1 className="text-b">ทีมแพทย์ที่ปรึกษา</h1>
       </div>
       <div
         className="container d-flex justify-content-center"
@@ -121,7 +44,7 @@ function Aboutus() {
                   src={one}
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
-                <h3 className="card-title">
+                <h3 className="text-b">
                   ผศ.นพ.สุรัตน์
                   <br />
                   ตันประเวช
@@ -145,7 +68,7 @@ function Aboutus() {
                   src={two}
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
-                <h3 className="card-title">
+                <h3 className="text-b">
                   ผศ.พญ.สลิตา
                   <br />
                   อังกุระวรานนท์
@@ -170,7 +93,7 @@ function Aboutus() {
                   src={three}
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
-                <h3 className="card-title">
+                <h3 className="text-b">
                   ผศ.นพ.อธิวัฒน์
                   <br />
                   สุนทรพันธ์
@@ -195,7 +118,7 @@ function Aboutus() {
                   src={four}
                   style={{ width: "100%", marginBottom: "20px" }}
                 />
-                <h3 className="card-title">
+                <h3 className="text-b">
                   ผศ.พญ.จุฬาลักษณ์
                   <br />
                   ตั้งมั่นคงวรกูล
@@ -210,6 +133,85 @@ function Aboutus() {
           </div>
         </div>
       </div>
+
+      <div className="row text-center" style={{ marginTop: "80px" }}>
+        <h4 style={{ color: "#4953f5", marginBottom: "20px" }}>ทีมงานของเรา</h4>
+        <h1>คณะผู้จัดทำ</h1>
+      </div>
+      <div
+        className="container d-flex justify-content-center"
+        style={{
+          padding: "10px",
+          marginBottom: "100px",
+        }}
+      >
+        <div
+          className="row"
+          style={{ marginLeft: "30px", marginRight: "30px" }}
+        >
+          <div className="col-4">
+            <div className="card" style={{ width: "100%", margin: "20px" }}>
+              <div
+                className="card-body text-center"
+                style={{ padding: "20px" }}
+              >
+                <img
+                  src={Pinky}
+                  style={{ width: "100%", marginBottom: "20px" }}
+                />
+                <h3 className="text-b">ธัญญาดา ทองใบ</h3>
+                <p className="card-text text-blue" style={{ fontSize: "20px" }}>
+                  ผู้พัฒนาเว็บไซต์
+                  <br />
+                  <br />
+                  โรงเรียนปรินส์รอยแยลส์วิทยาลัย
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col-4">
+            <div className="card" style={{ width: "100%", margin: "20px" }}>
+              <div
+                className="card-body text-center"
+                style={{ padding: "20px" }}
+              >
+                <img
+                  src={Lenny}
+                  style={{ width: "100%", marginBottom: "20px" }}
+                />
+                <h3 className="text-b">เลนนี โธมัส</h3>
+                <p className="card-text text-blue" style={{ fontSize: "20px" }}>
+                  ผู้พัฒนาแบบทดสอบดวงตา
+                  <br />
+                  <br />
+                  โรงเรียนปรินส์รอยแยลส์วิทยาลัย
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col-4">
+            <div className="card" style={{ width: "100%", margin: "20px" }}>
+              <div
+                className="card-body text-center"
+                style={{ padding: "20px" }}
+              >
+                <img
+                  src={Tin}
+                  style={{ width: "100%", marginBottom: "20px" }}
+                />
+                <h3 className="text-b">ติณณ์ โพธิกานนท์</h3>
+                <p className="card-text text-blue" style={{ fontSize: "20px" }}>
+                  ผู้พัฒนาปัญญาประดิษฐ์
+                  <br />
+                  <br />
+                  โรงเรียนปรินส์รอยแยลส์วิทยาลัย
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container-fluid bg-green" style={{ padding: "10px" }}>
         <div className="row">
           <div className="col-6">
@@ -225,6 +227,7 @@ function Aboutus() {
               <div className="container">
                 <h4 className="text-light-blue">ช่องทาง</h4>
                 <h1
+                  className="text-b"
                   style={{
                     fontSize: "45px",
                     marginTop: "20px",
@@ -248,7 +251,7 @@ function Aboutus() {
                         <img src={call} style={{ width: "100%" }} />
                       </div>
                       <div className="col-10">
-                        <h3>เบอร์โทร</h3>
+                        <h3 className="text-b">เบอร์โทร</h3>
                         <p>+66 92 961 8504</p>
                       </div>
                     </div>
@@ -259,7 +262,7 @@ function Aboutus() {
                         <img src={mail} style={{ width: "100%" }} />
                       </div>
                       <div className="col-10">
-                        <h3>อีเมล</h3>
+                        <h3 className="text-b">อีเมล</h3>
                         <p>Lennythomas252@gmail.com</p>
                       </div>
                     </div>
