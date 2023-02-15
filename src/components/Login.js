@@ -1,13 +1,21 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "./Picture/Logo.png";
 import app, { auth } from "./firebase/firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate("/signedin/home");
+      }
+    });
+  }, []);
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -28,7 +36,6 @@ const Login = () => {
   return (
     <form
       className="vh-100"
-      // onSubmit={handleSubmit}
       style={{
         backgroundColor: "#d1f7e5",
         paddingTop: "100px",
@@ -62,7 +69,7 @@ const Login = () => {
                     Email
                   </label>
                 </div>
-                <div className="form-floating mb-3">
+                <div className="form-floating mb-4">
                   <input
                     name="password"
                     type="password"
@@ -75,20 +82,6 @@ const Login = () => {
                   </label>
                 </div>
 
-                <div className="form-check d-flex justify-content-start mb-4">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="flexCheckDefault"
-                    style={{ width: "20px", height: "20px" }}
-                  />
-                  <label
-                    className="form-check-label"
-                    style={{ fontSize: "1.3em", color: "#636363" }}
-                  >
-                    &ensp;จดจำรหัสผ่าน
-                  </label>
-                </div>
                 <div className="row">
                   <button
                     className="btn btn-blue btn-lg btn-block"
@@ -104,7 +97,7 @@ const Login = () => {
                     <span style={{ fontSize: "1.3em" }}>
                       ยังไม่เคยลงทะเบียน?&ensp;
                       <Link
-                        to="signupuser"
+                        to="signup"
                         style={{ fontWeight: "bold", color: "#003269" }}
                       >
                         ลงทะเบียน

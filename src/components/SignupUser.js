@@ -1,7 +1,10 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import app, { auth } from "./firebase/firebaseConfig";
 import firebaseConfig from "./firebase/firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 import db from "./firebase/firebaseConfig";
 import {
   collection,
@@ -10,7 +13,7 @@ import {
   addDoc,
   Timestamp,
 } from "firebase/firestore";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const SignupUser = () => {
   const formValues = useRef({
@@ -27,6 +30,14 @@ const SignupUser = () => {
     Password: "",
     FamilyHasAD: false,
   });
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate("/signedin/home");
+      }
+    });
+  }, []);
 
   const [toggleRender, setToggleRender] = useState(false);
 

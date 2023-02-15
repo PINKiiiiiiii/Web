@@ -20,6 +20,8 @@ function Home(props) {
     navigate("/signedin/alzheimer's");
   };
 
+  // console.log(user.id);
+
   return (
     <div className="container-fluid" style={{ padding: "0em" }}>
       <div className="row">
@@ -46,7 +48,7 @@ function Home(props) {
               <h1
                 className="text-b"
                 style={{
-                  fontSize: "45px",
+                  fontSize: "42px",
                   marginTop: "30px",
                   marginBottom: "30px",
                 }}
@@ -125,7 +127,7 @@ function Home(props) {
               </div>
               <div className="col-10 text-white">
                 <h2>มีประสิทธิภาพ</h2>
-                <p>ใช้ปัญญาประดิษฐ์วิเคราะห์โอกาสในการเป็นอัลไซเมอร์</p>
+                <p>ใช้ปัญญาประดิษฐ์วิเคราะห์โอกาสการเป็นอัลไซเมอร์</p>
               </div>
             </div>
           </div>

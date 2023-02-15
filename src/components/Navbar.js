@@ -10,15 +10,19 @@ import Result from "./Result";
 import HomeDoc from "./HomeDoc";
 import ResultDoc from "./ResultDoc";
 import React, { useState, useEffect } from "react";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfig";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
-  // if (!auth.uid) {
-  //   <Navigate to="/" />;
-  // }
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/");
+      }
+    });
+  }, []);
 
   const handleLogout = () => {
     signOut(auth)

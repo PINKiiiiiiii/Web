@@ -16,7 +16,7 @@ function App(props) {
       <div>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/signupuser" element={<SignupUser />} />
+          <Route path="/signup" element={<SignupUser />} />
           <Route path="signedin/*" element={<Navbar />} />
           <Route path="admin/*" element={<NavbarDoc />} />
         </Routes>
