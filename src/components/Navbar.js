@@ -13,12 +13,27 @@ import React, { useState, useEffect } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfig";
 import WebgazerCanvas from "./WebgazerCanvas";
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import db from "./firebase/firebaseConfig";
+import { async } from "@firebase/util";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      const i = user.email;
+      setEmail(i);
+      // console.log(id);
       if (!user) {
         navigate("/");
       }
@@ -36,6 +51,23 @@ const Navbar = () => {
         // An error happened.
       });
   };
+  console.log(email);
+  const getId = async () => {
+    const q = query(collection(db, "Users"), where("Email", "==", email));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+    });
+  };
+
+  const getName = async () => {
+    const docRef = doc(db, "Users", "pJL7EUxFih7N27FCRAis");
+    const name = await getDoc(docRef);
+    const n = name.data().Name.First;
+    setUsername(n);
+  };
+  getId();
 
   return (
     <div>
@@ -79,13 +111,18 @@ const Navbar = () => {
               </li>
             </ul>
 
-            <button
-              className="btn btn-blue"
-              onClick={handleLogout}
-              type="submit"
-            >
-              <span>ออกจากระบบ</span>
-            </button>
+            <ul className="navbar-nav" style={{ marginRight: "1rem" }}>
+              <h5>{username}</h5>
+            </ul>
+            <ul className="navbar-nav mb-0 mb-lg-0">
+              <button
+                className="btn btn-blue"
+                onClick={handleLogout}
+                type="submit"
+              >
+                <span>ออกจากระบบ</span>
+              </button>
+            </ul>
           </div>
         </div>
       </nav>

@@ -6,6 +6,7 @@ import nj from "numjs";
 
 import exampleVideoSrc from "./../Videos/Example.mp4";
 
+const DEBUG: boolean = true;
 const N_BTNS: number = 9;
 const btnCnts: Array<number> = nj
   .arange<number>(1, N_BTNS + 1)
@@ -32,6 +33,11 @@ interface IBtnProps {
   color: string;
   opacity: number;
   disabled: boolean;
+}
+interface ICanvasData {
+  height: number;
+  patch: ImageData;
+  width: number;
 }
 // baseBtnProps won't be changed throughout the calibration process. (For restarting)
 const baseBtnProps: IBtnProps[] = btnCnts.map((i: number): IBtnProps => {
@@ -63,26 +69,31 @@ const arrHead: string[] = [
   "right-y",
 ];
 
-const sleep = (time: number): Promise<void> => {
-  return new Promise((resolve: (value: void) => void): void => {
-    setTimeout(resolve, time);
-  });
-};
+// const sleep = (time: number): Promise<void> => {
+//   return new Promise((resolve: (value: void) => void): void => {
+//     setTimeout(resolve, time);
+//   });
+// };
 
 const WebgazerCanvas: React.FC<{}> = () => {
+  // const testCanvasRef = useRef<HTMLCanvasElement>(null);
+  // const testCanvasData = useRef<ICanvasData | null>(null);
+  // const [testCanvasToggle, setTestCanvasToggle] = useState<boolean>(false);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const accuracyRef = useRef<HTMLLIElement>(null);
 
-  const btnProps = useRef<IBtnProps[]>(stBtnProps);
   const clickCnts = useRef<number[]>(Array<number>(N_BTNS).fill(0));
+  const btnProps = useRef<IBtnProps[]>(stBtnProps);
   const btnObjs = useRef<JSX.Element[]>([]);
   const btnElems = useRef<HTMLButtonElement[]>(Array<any>(N_BTNS).fill(null));
+  const webgazerReady = useRef<boolean>(false);
+  const isStarted = useRef<boolean>(false);
   const arr = useRef<string[][]>([arrHead]);
 
   const [toggleRender, setToggleRender] = useState<boolean>(false);
   const [btnElemsCreated, setBtnElemsCreated] = useState<boolean>(false);
   const [showHelpModal, setShowHelpModal] = useState<boolean>(false);
-  const [isStarted, setIsStarted] = useState<boolean>(false);
   const [clickedBtn, setClickedBtn] = useState<number>(0);
 
   const updateBtnAt = useCallback((idx: number, toggle: boolean): void => {
@@ -166,26 +177,23 @@ const WebgazerCanvas: React.FC<{}> = () => {
   );
   const handleCloseModal = (): void => {
     showCalibPoints(false);
+    isStarted.current = true;
     setShowHelpModal(false);
-    setIsStarted(true);
   };
   const handleRestartBtn = (): void => {
-    clearCalibData(true);
-    webgazer.clearData();
+    clearCalibData(false);
+    showCalibPoints(true);
   };
   const handleHelpBtn = (): void => {
-    handleRestartBtn();
+    clearCalibData(false);
     setShowHelpModal(true);
   };
-  const gazeListener = useCallback(
-    (data: IWebgazerData, clock: string, passarg: any) => {
-      if (data) {
-        if (!passarg) {
-          const gazeData = data;
-          localStorage.setItem("gazeData", JSON.stringify(gazeData));
-        }
-        // console.log(isStarted);
-        // if (isStarted) {
+  const gazeListener = useCallback((data: any, clock: string): void => {
+    // console.log(data);
+    if (data) {
+      // testCanvasData.current = data.eyeFeatures.left;
+      // setTestCanvasToggle((x: boolean): boolean => !x);
+      if (isStarted.current) {
         arr.current.push([
           clock,
           data.x,
@@ -197,11 +205,12 @@ const WebgazerCanvas: React.FC<{}> = () => {
           data.eyeFeatures.right.imagex,
           data.eyeFeatures.right.imagey,
         ]);
-        // }
+      } else if (!webgazerReady.current) {
+        webgazerReady.current = true;
+        setToggleRender((x: boolean): boolean => !x);
       }
-    },
-    [isStarted]
-  );
+    }
+  }, []);
   // const popUpInstruction = useCallback(async (): Promise<void> => {
   //   clearCanvas(true);
   //   await swal({
@@ -228,6 +237,9 @@ const WebgazerCanvas: React.FC<{}> = () => {
   }, [gazeListener]);
 
   useEffect((): void => {
+    console.log("STARTING");
+    webgazerReady.current = false;
+    isStarted.current = false;
     const stBtnObjs: JSX.Element[] = baseBtnProps.map(
       (item: IBtnProps, i: number): JSX.Element => {
         return (
@@ -252,7 +264,7 @@ const WebgazerCanvas: React.FC<{}> = () => {
   }, [handleCalibBtn]);
 
   useEffect((): void => {
-    if (btnElemsCreated && !isStarted) {
+    if (btnElemsCreated) {
       setupWebgazer();
       clearCanvas(false);
       setShowHelpModal(true);
@@ -260,8 +272,7 @@ const WebgazerCanvas: React.FC<{}> = () => {
         console.log("Failed to start Webgazer.");
       });
     }
-  }, [btnElemsCreated, isStarted, setupWebgazer, clearCanvas]);
-
+  }, [btnElemsCreated, setupWebgazer, clearCanvas]);
   useEffect((): void => {
     if (clickedBtn === 8) {
       showCalibAt(4, true);
@@ -277,9 +288,20 @@ const WebgazerCanvas: React.FC<{}> = () => {
       window.open(encodeURI(dl));
     }
   }, [clickedBtn, showCalibAt, clearCanvas]);
+  // useEffect((): void => {
+  //   if (testCanvasData.current) {
+  //     console.log(testCanvasData.current);
+  //     console.log("TEST RUNNING");
+  //     const canvas: HTMLCanvasElement = testCanvasRef.current!;
+  //     const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
+  //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //     ctx.putImageData(testCanvasData.current.patch, 100, 100);
+  //     setToggleRender((x: boolean): boolean => !x);
+  //   }
+  // }, [testCanvasToggle]);
 
   console.log(toggleRender);
-  console.log(arr.current.length);
+  // console.log(arr.current.length);
 
   return (
     <div className="container-fluid">
@@ -296,17 +318,21 @@ const WebgazerCanvas: React.FC<{}> = () => {
       >
         <div className="container-fluid">
           <button className="btn btn-light" onClick={handleRestartBtn}>
-            <Typography variant="subtitle1">เริ่มติดตามใหม่</Typography>
+            <Typography variant="subtitle1">
+              เตรียมพร้อมการมองอีกครั้ง
+            </Typography>
           </button>
           <ul className="nav navbar-nav">
             <li className="nav-item" ref={accuracyRef}>
-              <Typography variant="subtitle1" color="#ffffff"></Typography>
+              <Typography variant="subtitle1" color="#ffffff">
+                Calibration
+              </Typography>
             </li>
           </ul>
           <ul className="nav navbar-nav">
             <li className="nav-item">
               <button className="btn btn-light" onClick={handleHelpBtn}>
-                <Typography variant="subtitle1">ช่วยเหลือ</Typography>
+                <Typography variant="subtitle1">แนะนำการใช้งาน</Typography>
               </button>
             </li>
           </ul>
@@ -316,21 +342,30 @@ const WebgazerCanvas: React.FC<{}> = () => {
       <Modal
         show={showHelpModal}
         onHide={handleCloseModal}
-        style={{ zIndex: 1e4 }}
+        backdrop="static"
+        keyboard={DEBUG}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton={false}>
           <Modal.Title>
             <Typography variant="h6">แนะนำการใช้งาน</Typography>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <video src={exampleVideoSrc} width="465" controls />
+          <div className="row mt-2">
+            <div className="col-12">
+              <Typography>
+                กรุณาเปิดกล้อง และเลื่อนหน้าของท่านให้ปรากฏอยู่ในกรอบสีเขียว
+              </Typography>
+            </div>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <button
             className="btn btn-primary"
             data-dismiss="modal"
             onClick={handleCloseModal}
+            disabled={!webgazerReady.current}
           >
             <Typography variant="subtitle1">
               เริ่มติดตามการเคลื่อนที่ของตา
@@ -338,6 +373,14 @@ const WebgazerCanvas: React.FC<{}> = () => {
           </button>
         </Modal.Footer>
       </Modal>
+      {/* <Modal show={true}>
+        <canvas
+          ref={testCanvasRef}
+          width="500"
+          height="500"
+          style={{ visibility: "visible" }}
+        />
+      </Modal> */}
     </div>
   );
 };

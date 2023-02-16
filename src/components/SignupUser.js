@@ -6,13 +6,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import db from "./firebase/firebaseConfig";
-import {
-  collection,
-  doc,
-  getDocs,
-  addDoc,
-  Timestamp,
-} from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { useRef, useState, useEffect } from "react";
 
 const SignupUser = () => {
@@ -85,6 +79,7 @@ const SignupUser = () => {
       Password: formValues.current.Password,
       FamilyHasAD: Boolean(formValues.current.FamilyHasAD),
     });
+    const id = docRef.id;
   };
 
   const {
@@ -288,7 +283,7 @@ const SignupUser = () => {
                         htmlFor="floatingInput"
                         style={{ fontSize: "20px" }}
                       >
-                        วันเกิด
+                        วันเกิด (ค.ศ.)
                       </label>
                     </div>
                   </div>

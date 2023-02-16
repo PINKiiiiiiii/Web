@@ -20,8 +20,6 @@ function Home(props) {
     navigate("/signedin/alzheimer's");
   };
 
-  // console.log(user.id);
-
   return (
     <div className="container-fluid" style={{ padding: "0em" }}>
       <div className="row">

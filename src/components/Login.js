@@ -22,9 +22,9 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        const id = userCredential.user.uid;
+        // console.log(id);
         navigate("/signedin/home");
-        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
