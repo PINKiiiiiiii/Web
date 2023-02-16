@@ -13,14 +13,51 @@ import sep from "./Picture/sep.png";
 import oc from "./Picture/oc.png";
 import nov from "./Picture/nov.png";
 import dec from "./Picture/dec.png";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import BarChart from "./BarChart";
 
 function Records() {
   return (
     <div className="container-fluid" style={{ padding: "0em" }}>
       <div
+        className="row"
+        style={{
+          marginTop: "100px",
+          marginRight: "150px",
+          marginLeft: "150px",
+        }}
+      >
+        <div className="col-6">
+          <div className="widget">
+            <h4 className="text-deep-blue">% อัลไซเมอร์ล่าสุด</h4>
+            <div
+              className="row mb-4"
+              style={{
+                paddingLeft: "150px",
+                paddingRight: "150px",
+                paddingTop: "17px",
+              }}
+            >
+              <CircularProgressbar value={30} text={"30%"} strokeWidth={10} />
+            </div>
+          </div>
+        </div>
+        <div className="col-6">
+          <div className="widget">
+            <h4 className="text-black" style={{ paddingBottom: "14px" }}>
+              ผลการตรวจแต่ละเดือน
+            </h4>
+            <div style={{ width: "100%" }}>
+              <BarChart />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
         className="row text-center mb-3"
         style={{
-          paddingTop: "130px",
+          paddingTop: "110px",
         }}
       >
         <h4 style={{ color: "#4953f5", marginBottom: "10px" }}>เปอร์เซ็นต์</h4>

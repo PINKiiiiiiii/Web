@@ -12,6 +12,7 @@ import ResultDoc from "./ResultDoc";
 import React, { useState, useEffect } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfig";
+import WebgazerCanvas from "./WebgazerCanvas";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -95,15 +96,7 @@ const Navbar = () => {
         <Route path="alzheimer's" element={<Alzheimer />} />
         <Route path="aboutus" element={<Aboutus />} />
         <Route path="result" element={<Result />} />
-        <Route path="dashboard" element={<HomeDoc />} />
-        <Route path="patient" element={<ResultDoc />} />
-        <Route
-          exact
-          path="normal"
-          render={() => {
-            window.location.href = "pode.html";
-          }}
-        />
+        <Route path="calibrate" element={<WebgazerCanvas />} />
       </Routes>
     </div>
   );

@@ -1,0 +1,106 @@
+#webgazer-video-container {
+  display: block !important;
+  position: fixed !important;
+  top: 0px !important;
+  left: 0px !important;
+  width: 320px !important;
+  height: 240px !important;
+  z-index: 1;
+}
+
+/* Navbar styling */
+#webgazer-navbar {
+  left: 320px;
+  margin-right: 320px;
+  z-index: 0;
+  box-shadow: 0px 3px 5px #ddd;
+  border: 0px;
+  background-color: #fff;
+}
+
+#accuracy a {
+  background-color: #222;
+  color: #eee;
+  left: -15px;
+  padding-left: 80px;
+  padding-right: 40px;
+}
+#accuracy {
+  background-color: #222;
+  padding-left: inherit;
+}
+
+.navbar-right li {
+  padding-right: 20px;
+}
+
+.help-btn {
+  padding: 15px;
+  border: none;
+  background: none;
+  color: #777;
+}
+.help-btn a {
+  background: none;
+  color: #777;
+}
+.help-btn a:hover {
+  color: black !important;
+  text-decoration: none;
+}
+.modal-header {
+  border-bottom: none !important;
+}
+
+/* Calibration button styling */
+.calibration {
+  width: 22px;
+  height: 22px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  background-color: red;
+  opacity: 0.2;
+  border-color: black;
+  border-style: solid;
+  position: fixed;
+}
+
+/* Calibration point position */
+#pt1 {
+  top: 70px;
+  left: 340px;
+}
+#pt2 {
+  top: 70px;
+  left: 50vw;
+  margin-left: 340;
+}
+#pt3 {
+  top: 70px;
+  right: 2vw;
+}
+#pt4 {
+  top: 50vh;
+  left: 2vw;
+}
+#pt5 {
+  top: 50vh;
+  left: 50vw;
+}
+#pt6 {
+  top: 50vh;
+  right: 2vw;
+}
+#pt7 {
+  bottom: 2vw;
+  left: 2vw;
+}
+#pt8 {
+  bottom: 2vw;
+  left: 50vw;
+}
+#pt9 {
+  bottom: 2vw;
+  right: 2vw;
+}

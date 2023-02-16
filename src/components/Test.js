@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Test() {
   let navigate = useNavigate();
   const goTest = () => {
-    navigate((window.location.href = "http://127.0.0.1:5502/index.html"));
+    navigate("/calibrate");
   };
 
   return (
