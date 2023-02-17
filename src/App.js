@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import SignupUser from "./components/SignupUser";
 import NavbarDoc from "./components/NavbarDoc";
 import WebgazerCanvas from "./components/WebgazerCanvas";
+import Fixation from "./components/Fixation";
 import { AuthProvider } from "./components/Auth";
 import "./Styles/Style.css";
 
@@ -20,6 +21,7 @@ function App(props) {
       <Route path="signedin/*" element={<Navbar />} />
       <Route path="admin/*" element={<NavbarDoc />} />
       <Route path="/calibrate" element={<WebgazerCanvas />} />
+      <Route path="/fixation" element={<Fixation />} />
     </Routes>
   );
 }
