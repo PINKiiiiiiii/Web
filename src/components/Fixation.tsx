@@ -12,7 +12,11 @@ import fixationAudio from "../PoDE/Audio/Fixation.mp3";
 // import fixationAudio from "";
 
 const Fixation: React.FC<{}> = () => {
-  useEffect(() => {});
+  useEffect(() => {
+    webgazer.begin((): void => {
+      console.log("Start");
+    });
+  });
   let navigate = useNavigate();
   useEffect(() => {
     const video = document.getElementById("bg-video") as HTMLVideoElement;
