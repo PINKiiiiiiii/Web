@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Test() {
   let navigate = useNavigate();
   const goTest = () => {
-    navigate("/calibrate");
+    navigate("/fixation");
   };
 
   return (

@@ -21,6 +21,7 @@
     "numjs": "^0.16.1",
     "path-browserify": "^1.0.1",
     "react": "^18.2.0",
+    "react-audio-player": "^0.17.0",
     "react-bootstrap": "^2.7.2",
     "react-chartjs-2": "^5.2.0",
     "react-chartjs2": "^1.2.1",
