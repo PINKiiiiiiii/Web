@@ -1,12 +1,48 @@
-import React from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import BarChart from "./BarChart";
 
 function Result() {
   return (
     <div className="container-fluid bg-blue" style={{ padding: "0em" }}>
       <div
+        className="row"
+        style={{
+          marginTop: "100px",
+          marginRight: "80px",
+          marginLeft: "80px",
+        }}
+      >
+        <div className="col-5">
+          <div className="widget">
+            <h4 className="text-deep-blue">ความเสี่ยงในการเป็นโรคอัลไซเมอร์</h4>
+            <div
+              className="row mb-4"
+              style={{
+                paddingLeft: "85px",
+                paddingRight: "85px",
+                paddingTop: "24px",
+              }}
+            >
+              <CircularProgressbar value={30} text={"30%"} strokeWidth={10} />
+            </div>
+          </div>
+        </div>
+        <div className="col-7">
+          <div className="widget">
+            <h4 className="text-black" style={{ paddingBottom: "14px" }}>
+              ผลการตรวจครั้งล่าสุด
+            </h4>
+            <div style={{ width: "100%" }}>
+              <BarChart />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
         className="row text-center"
         style={{
-          paddingTop: "120px",
+          paddingTop: "100px",
         }}
       >
         <h4 style={{ color: "#4953f5", marginBottom: "10px" }}>ผลการทดสอบ</h4>
