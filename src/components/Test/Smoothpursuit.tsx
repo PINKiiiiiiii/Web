@@ -1,17 +1,17 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Typography } from "@mui/material";
-import webgazer from "./../Scripts/Webgazer/index";
+import webgazer from "../../Scripts/Webgazer/index";
 import nj from "numjs";
 import { useNavigate } from "react-router-dom";
-import "./WebgazerCanvas";
-import "../PoDE/css/video.css";
-import fixation from "../PoDE/Video/Fixation.mp4";
+import "../WebgazerCanvas";
+import "./../../PoDE/css/video.css";
+import smoothpursuit from "./../../PoDE/Video/smoothpursuit.mp4";
 import ReactAudioPlayer from "react-audio-player";
-import fixationAudio from "../PoDE/Audio/Fixation.mp3";
+import smoothpursuitAudio from "./../../PoDE/Audio/smoothpursuit.mp3";
 // import fixationAudio from "";
 
-const Fixation: React.FC<{}> = () => {
+const Smoothpursuit: React.FC<{}> = () => {
   useEffect(() => {
     webgazer.begin((): void => {
       console.log("Start");
@@ -29,7 +29,7 @@ const Fixation: React.FC<{}> = () => {
       btn.style.borderRadius = "45px";
       btn.style.fontFamily = "Anuphan";
       btn.addEventListener("click", function () {
-        navigate("/calibrate");
+        navigate("/vpctask");
         webgazer.pause();
 
         //   const csv = arr.map((fields) => fields.join(",")).join("\n");
@@ -44,11 +44,11 @@ const Fixation: React.FC<{}> = () => {
   return (
     <div className="video-background">
       <video className="videoTag" id="bg-video" autoPlay muted loop>
-        <source src={fixation} type="video/mp4" />
+        <source src={smoothpursuit} type="video/mp4" />
       </video>
 
-      <ReactAudioPlayer src={fixationAudio} autoPlay muted={false} />
+      <ReactAudioPlayer src={smoothpursuitAudio} autoPlay muted={false} />
     </div>
   );
 };
-export default memo(Fixation);
+export default memo(Smoothpursuit);
