@@ -9,15 +9,47 @@ import "./../../PoDE/css/video.css";
 import fixation from "./../../PoDE/Video/Fixation.mp4";
 import ReactAudioPlayer from "react-audio-player";
 import fixationAudio from "./../../PoDE/Audio/Fixation.mp3";
-// import fixationAudio from "";
+
+const arrHead: string[] = [
+  "time",
+  "x",
+  "y",
+  "left-height",
+  "left-x",
+  "left-y",
+  "right-height",
+  "right-x",
+  "right-y",
+];
 
 const Fixation: React.FC<{}> = () => {
+  const arr = useRef<string[][]>([arrHead]);
   useEffect(() => {
+    webgazer.setGazeListener(gazeListener);
     webgazer.applyKalmanFilter(true);
     webgazer.begin((): void => {
       console.log("Start");
     });
   });
+  const gazeListener = useCallback((data: any, clock: string): void => {
+    // console.log(data);
+    if (data) {
+      // testCanvasData.current = data.eyeFeatures.left;
+      // setTestCanvasToggle((x: boolean): boolean => !x);
+      arr.current.push([
+        clock,
+        data.x,
+        data.y,
+        data.eyeFeatures.left.height,
+        data.eyeFeatures.left.imagex,
+        data.eyeFeatures.left.imagey,
+        data.eyeFeatures.right.height,
+        data.eyeFeatures.right.imagex,
+        data.eyeFeatures.right.imagey,
+      ]);
+    }
+  }, []);
+
   let navigate = useNavigate();
   useEffect(() => {
     const video = document.getElementById("bg-video") as HTMLVideoElement;
@@ -33,6 +65,13 @@ const Fixation: React.FC<{}> = () => {
       btn.style.fontFamily = "Anuphan";
       btn.addEventListener("click", function () {
         navigate("/prosaccade");
+        const csv: string = arr.current
+          .map((fields: string[]): string => {
+            return fields.join(",");
+          })
+          .join("\n");
+        const dl: string = `data:text/csv;charset=utf-8,${csv}`;
+        window.open(encodeURI(dl));
 
         //   const csv = arr.map((fields) => fields.join(",")).join("\n");
         //   const dl = "data:text/csv;charset=utf-8," + csv;
