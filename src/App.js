@@ -15,7 +15,7 @@ import "./Styles/Style.css";
 import Prosaccade from "./components/Test/Prosaccade";
 import Antisaccade from "./components/Test/Antisaccade";
 import Smoothpursuit from "./components/Test/Smoothpursuit";
-import vpcTask from "./components/Test/vpcTask";
+import VpcTask from "./components/Test/VpcTask";
 
 function App(props) {
   return (
@@ -29,7 +29,7 @@ function App(props) {
       <Route path="/prosaccade" element={<Prosaccade />} />
       <Route path="/antisaccade" element={<Antisaccade />} />
       <Route path="/smoothpursuit" element={<Smoothpursuit />} />
-      <Route path="/vpctask" element={<vpcTask />} />
+      <Route path="/vpctask" element={<VpcTask />} />
     </Routes>
   );
 }
