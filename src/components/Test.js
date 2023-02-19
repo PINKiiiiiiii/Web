@@ -6,11 +6,7 @@ import "./WebgazerCanvas";
 // import next from "../PoDE/js/main";
 
 function Test() {
-  useEffect(() => {
-    webgazer.end(() => {
-      console.log("Start");
-    });
-  }, []);
+  webgazer.close();
 
   let navigate = useNavigate();
   const goTest = () => {

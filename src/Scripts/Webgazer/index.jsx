@@ -784,6 +784,18 @@ webgazer.stopVideo = function () {
   return webgazer;
 };
 
+webgazer.close = function () {
+  if (videoElementCanvas != null) {
+    paused = true;
+    videoStream.getTracks()[0].stop();
+    videoContainerElement.remove(faceOverlay);
+    videoContainerElement.remove(faceFeedbackBox);
+    videoContainerElement.remove();
+    gazeDot.remove();
+  }
+  return webgazer;
+};
+
 //PUBLIC FUNCTIONS - DEBUG
 
 /**
