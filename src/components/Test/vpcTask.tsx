@@ -6,7 +6,7 @@ import nj from "numjs";
 import { useNavigate } from "react-router-dom";
 import "../WebgazerCanvas";
 import "./../../PoDE/css/video.css";
-import vpc from "./../../PoDE/Video/vpctask.mp4";
+import vpc from "../../Videos/vpctask.mp4";
 import ReactAudioPlayer from "react-audio-player";
 import vpcAudio from "./../../PoDE/Audio/vpctask.mp3";
 
@@ -64,6 +64,7 @@ const VpcTask: React.FC<{}> = () => {
       btn.style.borderRadius = "45px";
       btn.style.fontFamily = "Anuphan";
       btn.addEventListener("click", function () {
+        webgazer.end();
         navigate("/signedin/result");
         const csv: string = arr.current
           .map((fields: string[]): string => {
@@ -72,6 +73,7 @@ const VpcTask: React.FC<{}> = () => {
           .join("\n");
         const dl: string = `data:text/csv;charset=utf-8,${csv}`;
         window.open(encodeURI(dl));
+        
         // webgazer.pause();
 
         //   const csv = arr.map((fields) => fields.join(",")).join("\n");
@@ -85,7 +87,7 @@ const VpcTask: React.FC<{}> = () => {
 
   return (
     <div className="video-background">
-      <video className="videoTag" id="bg-video" autoPlay muted loop>
+      <video className="videoTag" id="bg-video" autoPlay>
         <source src={vpc} type="video/mp4" />
       </video>
 
