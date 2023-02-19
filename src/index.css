@@ -16,6 +16,10 @@ select {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.alert {
+  font-family: "Anuphan", sans-serif;
+}
+
 .centered-about {
   position: absolute;
   top: 25%;

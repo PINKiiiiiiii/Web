@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 import logo from "./Picture/Logo.png";
 import app, { auth } from "./firebase/firebaseConfig";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import Alert from "react-bootstrap/Alert";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, isError] = useState(false);
+  // const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -27,6 +30,8 @@ const Login = () => {
         navigate("/signedin/home");
       })
       .catch((error) => {
+        isError(true);
+        // setErrorMessage(error.message);
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
@@ -38,8 +43,8 @@ const Login = () => {
       className="vh-100"
       style={{
         backgroundColor: "#d1f7e5",
-        paddingTop: "100px",
-        paddingBottom: "100px",
+        paddingTop: "50px",
+        // paddingBottom: "100px",
       }}
     >
       <div className="container py-3 h-100">
@@ -92,7 +97,7 @@ const Login = () => {
                     <h2>เข้าสู่ระบบ</h2>
                   </button>
                 </div>
-                <div className="row">
+                <div className="row mb-4">
                   <div className="col-md-12 d-flex justify-content-center">
                     <span style={{ fontSize: "1.3em" }}>
                       ยังไม่เคยลงทะเบียน?&ensp;
@@ -105,6 +110,13 @@ const Login = () => {
                     </span>
                   </div>
                 </div>
+                <Alert
+                  className="alert alert-danger mb-1"
+                  role="alert"
+                  show={error}
+                >
+                  Email หรือ รหัสผ่านไม่ถูกต้อง
+                </Alert>
               </div>
             </div>
           </div>

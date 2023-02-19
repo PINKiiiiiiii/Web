@@ -1,8 +1,11 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Typography } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import webgazer from "./../Scripts/Webgazer/index";
 import nj from "numjs";
+import reload from "./Picture/reload.png";
+import play from "./Picture/play.png";
 
 import exampleVideoSrc from "./../Videos/Example.mp4";
 
@@ -74,6 +77,11 @@ const arrHead: string[] = [
 //     setTimeout(resolve, time);
 //   });
 // };
+const theme = createTheme({
+  typography: {
+    fontFamily: "Anuphan",
+  },
+});
 
 const WebgazerCanvas: React.FC<{}> = () => {
   // const testCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -304,76 +312,79 @@ const WebgazerCanvas: React.FC<{}> = () => {
   // console.log(arr.current.length);
 
   return (
-    <div className="container-fluid">
-      <canvas
-        ref={canvasRef}
-        width="500"
-        height="500"
-        style={{ cursor: "crosshair" }}
-      />
-      <nav
-        id="webgazer-navbar"
-        className="navbar navbar-expand-lg"
-        style={{ backgroundColor: "#10167b" }}
-      >
-        <div className="container-fluid">
-          <button className="btn btn-light" onClick={handleRestartBtn}>
-            <Typography variant="subtitle1">
-              เตรียมพร้อมการมองอีกครั้ง
-            </Typography>
-          </button>
-          <ul className="nav navbar-nav">
-            <li className="nav-item" ref={accuracyRef}>
-              <Typography variant="subtitle1" color="#ffffff">
-                Calibration
-              </Typography>
-            </li>
-          </ul>
-          <ul className="nav navbar-nav">
-            <li className="nav-item">
-              <button className="btn btn-light" onClick={handleHelpBtn}>
-                <Typography variant="subtitle1">แนะนำการใช้งาน</Typography>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <div className="calibration-div">{btnObjs.current}</div>
-      <Modal
-        show={showHelpModal}
-        onHide={handleCloseModal}
-        backdrop="static"
-        keyboard={DEBUG}
-      >
-        <Modal.Header closeButton={false}>
-          <Modal.Title>
-            <Typography variant="h6">แนะนำการใช้งาน</Typography>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <video src={exampleVideoSrc} width="465" controls />
-          <div className="row mt-2">
-            <div className="col-12">
-              <Typography>
-                กรุณาเปิดกล้อง และเลื่อนหน้าของท่านให้ปรากฏอยู่ในกรอบสีเขียว
-              </Typography>
-            </div>
+    <ThemeProvider theme={theme}>
+      <div className="container-fluid" style={{ padding: "0em" }}>
+        <canvas
+          ref={canvasRef}
+          width="500"
+          height="500"
+          style={{ cursor: "crosshair" }}
+        />
+        <nav
+          id="webgazer-navbar"
+          className="navbar navbar-expand-lg"
+          style={{ backgroundColor: "#10167b" }}
+        >
+          <div className="container-fluid">
+            <button className="btn btn-light" onClick={handleRestartBtn}>
+              <img src={reload} style={{ height: "20px" }} />
+              {/* <Typography variant="subtitle1">
+                เตรียมพร้อมการมองอีกครั้ง
+              </Typography> */}
+            </button>
+            <ul className="nav navbar-nav">
+              <li className="nav-item" ref={accuracyRef}>
+                {/* <Typography variant="subtitle1" color="#ffffff">
+                  Calibration
+                </Typography> */}
+              </li>
+            </ul>
+            <ul className="nav navbar-nav">
+              <li className="nav-item">
+                <button className="btn btn-light" onClick={handleHelpBtn}>
+                  <img src={play} style={{ height: "15px" }} />
+                  {/* <Typography variant="subtitle1">แนะนำการใช้งาน</Typography> */}
+                </button>
+              </li>
+            </ul>
           </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <button
-            className="btn btn-primary"
-            data-dismiss="modal"
-            onClick={handleCloseModal}
-            disabled={!webgazerReady.current}
-          >
-            <Typography variant="subtitle1">
-              เริ่มติดตามการเคลื่อนที่ของตา
-            </Typography>
-          </button>
-        </Modal.Footer>
-      </Modal>
-      {/* <Modal show={true}>
+        </nav>
+        <div className="calibration-div">{btnObjs.current}</div>
+        <Modal
+          show={showHelpModal}
+          onHide={handleCloseModal}
+          backdrop="static"
+          keyboard={DEBUG}
+        >
+          <Modal.Header closeButton={false}>
+            <Modal.Title>
+              <Typography variant="h6">แนะนำการใช้งาน</Typography>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <video src={exampleVideoSrc} width="465" controls />
+            <div className="row mt-2">
+              <div className="col-12">
+                <Typography>
+                  กรุณาเปิดกล้อง และเลื่อนหน้าของท่านให้ปรากฏอยู่ในกรอบสีเขียว
+                </Typography>
+              </div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="btn btn-primary"
+              data-dismiss="modal"
+              onClick={handleCloseModal}
+              disabled={!webgazerReady.current}
+            >
+              <Typography variant="subtitle1">
+                เริ่มติดตามการเคลื่อนที่ของตา
+              </Typography>
+            </button>
+          </Modal.Footer>
+        </Modal>
+        {/* <Modal show={true}>
         <canvas
           ref={testCanvasRef}
           width="500"
@@ -381,7 +392,8 @@ const WebgazerCanvas: React.FC<{}> = () => {
           style={{ visibility: "visible" }}
         />
       </Modal> */}
-    </div>
+      </div>
+    </ThemeProvider>
   );
 };
 

@@ -27,12 +27,24 @@ import { async } from "@firebase/util";
 const Navbar = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [id, setId] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      const i = user.email;
-      setEmail(i);
+      // const i = user.email;
+      // setEmail(i);
+      const getId = async () => {
+        const q = query(
+          collection(db, "Users"),
+          where("Email", "==", user.email)
+        );
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id);
+          setId(doc.id);
+        });
+      };
+      getId();
       // console.log(id);
       if (!user) {
         navigate("/");
@@ -51,23 +63,22 @@ const Navbar = () => {
         // An error happened.
       });
   };
-  console.log(email);
-  const getId = async () => {
-    const q = query(collection(db, "Users"), where("Email", "==", email));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-    });
-  };
+  // console.log(email);
+  // const getId = async () => {
+  //   const q = query(collection(db, "Users"), where("Email", "==", { email }));
+  //   const querySnapshot = await getDocs(q);
+  //   querySnapshot.forEach((doc) => {
+  //     console.log(doc.id);
+  //   });
+  // };
 
   const getName = async () => {
-    const docRef = doc(db, "Users", "pJL7EUxFih7N27FCRAis");
+    const docRef = doc(db, "Users", id);
     const name = await getDoc(docRef);
     const n = name.data().Name.First;
     setUsername(n);
   };
-  getId();
+  getName();
 
   return (
     <div>

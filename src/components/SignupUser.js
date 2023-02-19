@@ -8,8 +8,12 @@ import {
 import db from "./firebase/firebaseConfig";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { useRef, useState, useEffect } from "react";
+import Alert from "react-bootstrap/Alert";
 
 const SignupUser = () => {
+  const [error, isError] = useState(false);
+  const [toggleRender, setToggleRender] = useState(false);
+
   const formValues = useRef({
     First: "",
     Middle: "",
@@ -32,8 +36,6 @@ const SignupUser = () => {
       }
     });
   }, []);
-
-  const [toggleRender, setToggleRender] = useState(false);
 
   const handleFormChange = (e) => {
     formValues.current[e.target.name] = e.target.value;
@@ -58,6 +60,7 @@ const SignupUser = () => {
         // ...
       })
       .catch((error) => {
+        isError(true);
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
@@ -344,7 +347,7 @@ const SignupUser = () => {
                         htmlFor="floatingPassword"
                         style={{ fontSize: "20px" }}
                       >
-                        รหัสผ่าน
+                        รหัสผ่าน (มากกว่า 6 ตัว)
                       </label>
                     </div>
                   </div>
@@ -381,7 +384,8 @@ const SignupUser = () => {
                     className="form-check-label"
                     style={{ fontSize: "1.3em", color: "#636363" }}
                   >
-                    &ensp;มีประวัติคนในครอบครัวเป็นโรคอัลไซเมอร์
+                    &ensp;มีประวัติคนในครอบครัวเป็นโรคอัลไซเมอร์ (เฉพาะบิดา,
+                    มารดา, ปู่, ย่า, ตา, ยาย)
                   </label>
                 </div>
                 <div
@@ -397,7 +401,7 @@ const SignupUser = () => {
                     <h2>ลงทะเบียน</h2>
                   </button>
                 </div>
-                <div className="row">
+                <div className="row mb-2">
                   <div className="col-md-12 mb-1 d-flex justify-content-center">
                     <span style={{ fontSize: "1.4em" }}>
                       เคยลงทะเบียนแล้ว?&ensp;
@@ -410,6 +414,13 @@ const SignupUser = () => {
                     </span>
                   </div>
                 </div>
+                <Alert
+                  className="alert alert-danger mb-1"
+                  role="alert"
+                  show={error}
+                >
+                  กรอกข้อมูลไม่ครบถ้วน
+                </Alert>
               </div>
             </div>
           </div>
