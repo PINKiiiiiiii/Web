@@ -25,6 +25,7 @@ const arrHead: string[] = [
 const VpcTask: React.FC<{}> = () => {
   const arr = useRef<string[][]>([arrHead]);
   useEffect(() => {
+    webgazer.setGazeListener(gazeListener);
     webgazer.applyKalmanFilter(true);
     webgazer.showPredictionPoints(true);
     webgazer.begin((): void => {
@@ -73,7 +74,7 @@ const VpcTask: React.FC<{}> = () => {
           .join("\n");
         const dl: string = `data:text/csv;charset=utf-8,${csv}`;
         window.open(encodeURI(dl));
-        
+
         // webgazer.pause();
 
         //   const csv = arr.map((fields) => fields.join(",")).join("\n");

@@ -758,7 +758,7 @@ webgazer.end = function () {
   //loop may run an extra time and fail due to removed elements
   paused = true;
 
-  //webgazer.stopVideo(); // uncomment if you want to stop the video from streaming
+  webgazer.stopVideo(); // uncomment if you want to stop the video from streaming
 
   //remove video element and canvas
   videoContainerElement.remove();

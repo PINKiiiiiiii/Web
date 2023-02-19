@@ -25,6 +25,7 @@ const arrHead: string[] = [
 const Smoothpursuit: React.FC<{}> = () => {
   const arr = useRef<string[][]>([arrHead]);
   useEffect(() => {
+    webgazer.setGazeListener(gazeListener);
     webgazer.applyKalmanFilter(true);
     webgazer.showPredictionPoints(true);
     webgazer.begin((): void => {
