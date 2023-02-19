@@ -15,7 +15,7 @@ import "./Styles/Style.css";
 import Prosaccade from "./components/Test/Prosaccade";
 import Antisaccade from "./components/Test/Antisaccade";
 import Smoothpursuit from "./components/Test/Smoothpursuit";
-import VpcTask from "./components/Test/VpcTask";
+import VpcTask from "./components/Test/vpcTask";
 
 function App(props) {
   return (

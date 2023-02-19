@@ -1,8 +1,17 @@
+import { useEffect } from "react";
 import check from "./Picture/check.png";
 import { useNavigate } from "react-router-dom";
+import webgazer from "../Scripts/Webgazer/index";
+import "./WebgazerCanvas";
 // import next from "../PoDE/js/main";
 
 function Test() {
+  useEffect(() => {
+    webgazer.end(() => {
+      console.log("Start");
+    });
+  }, []);
+
   let navigate = useNavigate();
   const goTest = () => {
     navigate("/fixation");
